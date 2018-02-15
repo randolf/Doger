@@ -1,22 +1,23 @@
 Doger
 =====
 
-IRC tip bot in python.
+IRC tip bot written in Python.
 
 **Requirements:**
 
-- **RPC library** - From [here](https://github.com/jcsaaddupuy/dogecoin-python) or pypi.
-- **Dogecoind** - From [here](https://github.com/dogecoin/dogecoin/), you need the `dogecoind` binary.
-- **Postgres** - From [here](http://www.postgresql.org/), python binding from [here](https://pypi.python.org/pypi/psycopg2)
-- **Python** - Obviously.
+- **RPC library** - From [here](https://github.com/jcsaaddupuy/dogecoin-python) or pypi
+- **Dogecoind** - From [here](https://github.com/dogecoin/dogecoin/), because you'll need the `dogecoind` binary
+- **PostgreSQL** - From [here](http://www.postgresql.org/)
+- **Psycopg 2** - From [here](https://pypi.python.org/pypi/psycopg2), which provides Python binding to PostgreSQL
+- **Python** - Obviously
 
 **Setup:**
 
-- Create a file in the same folder as the code named `Config.py`, and put the following into it:
+- Create a file in the same folder as the source code named `Config.py` that contains the following, then customize it according to your needs:
 
 ```
 config = {
-	"host": "ircserverhostna.me",
+	"host": "irc-server-hostname.example.com",
 	"port": 6667,
 # optional:
 #	"ipv6": True,
@@ -51,7 +52,7 @@ config = {
 }
 ```
 
-- Add the following to the dogecoin.conf:
+- Add the following to the `dogecoin.conf` file:
 
 ```
 rpcthreads=100
@@ -62,7 +63,7 @@ paytxfee=1.0
 blocknotify=/usr/bin/touch blocknotify/blocknotify
 ```
 
-- Create a postgres database with the following schema:
+- Create a PostgreSQL database, connect to it, then set up the following schema:
 
 ```
 CREATE TABLE accounts (account character varying(16) NOT NULL, balance bigint DEFAULT 0, CONSTRAINT balance CHECK ((balance >= 0)));
@@ -77,7 +78,7 @@ ALTER TABLE address_account ADD CONSTRAINT address_account_account_fkey FOREIGN 
 ALTER TABLE locked ADD CONSTRAINT locked_pkey PRIMARY KEY (account);
 ```
     
-**Running it:**
+**Running Doger:**
 
-- Start up the dogecoin daemon (`dogecoind`)
-- Launch the bot with `python Main.py`
+- Start up the Dogecoin daemon (`dogecoind`)
+- Launch the Doger bot with `python Main.py`
